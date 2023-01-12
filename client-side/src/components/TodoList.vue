@@ -6,7 +6,8 @@ export default{
         return{
 
             apiUrl: 'http://localhost/php-todo-list-json/server-side/api.php',
-            todoList: []
+            todoList: [],
+            newTask: ''
         }
     },
     methods: {
@@ -33,6 +34,11 @@ export default{
     <ul>
         <li v-for="task in this.todoList">{{task.name}}</li>
     </ul>
+
+    <form>
+        <input type="text" name="newTask" v-model="newTask">
+        <input type="submit" value="ADD TASK">
+    </form>
 </template>
 
 <style scoped>

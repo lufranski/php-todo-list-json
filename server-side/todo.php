@@ -31,15 +31,15 @@
     $res = file_put_contents('todo.json' , $jsonToDoList);
 
     //ADDING NEW TASK
-    $jsonToDoList = file_get_contents('todo.json' , true);
-    $toDoList = json_decode($jsonToDoList);
+    // $jsonToDoList = file_get_contents('todo.json' , true);
+    // $toDoList = json_decode($jsonToDoList);
 
-    $toDoList[] = [
-        'name' => 'New Task',
-        'completed' => false
-    ];
+    // $toDoList[] = [
+    //     'name' => 'New Task',
+    //     'completed' => false
+    // ];
 
-    $jsonToDoList = json_encode($toDoList);
-    $res = file_put_contents('todo.json' , $jsonToDoList); 
+    // $jsonToDoList = json_encode($toDoList);
+    // $res = file_put_contents('todo.json' , $jsonToDoList); 
 
-    var_dump($toDoList);
+    // var_dump($toDoList);
