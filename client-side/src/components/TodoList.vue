@@ -92,6 +92,9 @@ form {
     margin-right: 20px;
     padding: .5rem;
     border-radius: 0 16px 0 16px;
+    background-color: black;
+    color: #FB2576;
+    border: 1px solid #FB2576;
     transition: .4s;
 }
 
@@ -102,6 +105,9 @@ form {
 #button {
     padding: .5rem;
     border-radius: 0 16px 0 16px;
+    background-color: black;
+    color: #FB2576;
+    border: 1px solid #FB2576;
     transition: .4s;
 }
 
