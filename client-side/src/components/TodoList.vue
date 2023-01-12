@@ -32,11 +32,24 @@ export default{
                 axios.get(this.apiUrl + 'api-new-task.php', par).then(() => {
                     this.getTodoList();
                 });
+
+            }
+        },
+        taskDone(index){
+            console.log(this.todoList);
+            
+            if(this.todoList[index].completed == false) {
+
+                this.todoList[index].completed = true;
+            } else {
+
+                this.todoList[index].completed = false;
             }
         }
     },
     mounted() {
         this.getTodoList();
+        // console.log(this.todoList);
     }
 }
 </script>
@@ -48,7 +61,8 @@ export default{
     </div>
 
     <ul>
-        <li v-for="task in this.todoList" :class="task.completed ? 'done' : ''">{{task.name}}</li>
+        <li 
+        v-for="(task, index) in this.todoList" :key=index :class="task.completed ? 'done' : ''" @click="taskDone(index)">{{task.name}}</li>
     </ul>
 
     <form @submit="addTask">
@@ -80,6 +94,7 @@ li {
     border-radius: 16px 0 16px 0;
     color: black;
     font-weight: 900;
+    cursor: pointer;
 }
 
 .done {
