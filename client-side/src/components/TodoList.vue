@@ -48,7 +48,7 @@ export default{
     </div>
 
     <ul>
-        <li v-for="task in this.todoList">{{task.name}}</li>
+        <li v-for="task in this.todoList" :class="task.completed ? 'done' : ''">{{task.name}}</li>
     </ul>
 
     <form @submit="addTask">
@@ -80,6 +80,10 @@ li {
     border-radius: 16px 0 16px 0;
     color: black;
     font-weight: 900;
+}
+
+.done {
+    text-decoration: line-through;
 }
 
 form {
