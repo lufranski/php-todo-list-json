@@ -1,6 +1,24 @@
 <script>
-export default{
+import axios from 'axios';
 
+export default{
+    data(){
+        return{
+
+            apiUrl: 'http://localhost/php-todo-list-json/server-side/api.php'
+        }
+    },
+    methods: {
+        getTodoList(){
+            
+            axios.get(this.apiUrl).then(res => {
+                const data = res.data;
+            });
+        }
+    },
+    mounted() {
+        this.getTodoList();
+    }
 }
 </script>
 
