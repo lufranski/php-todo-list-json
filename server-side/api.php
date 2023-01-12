@@ -1,44 +1,8 @@
 <?php
-
-    $toDoList = [
-        [
-            'name' => 'HTML',
-            'completed' => true
-        ],
-        [
-            'name' => 'CSS',
-            'completed' => true
-        ],
-        [
-            'name' => 'Responsive Design',
-            'completed' => true
-        ],
-        [
-            'name' => 'Javascript',
-            'completed' => true
-        ],
-        [
-            'name' => 'PHP',
-            'completed' => false
-        ],
-        [
-            'name' => 'Laravel',
-            'completed' => false
-        ],
-    ];
-
-    $jsonToDoList = json_encode($toDoList);
-    file_put_contents('todo.json' , $jsonToDoList);
-
-    $jsonToDoList = file_get_contents('todo.json' , true);
-    $toDoList = json_decode($jsonToDoList);
-
-    $toDoList[] = [
-        'name' => 'New Task',
-        'completed' => false
-    ];
-
-    $jsonToDoList = json_encode($toDoList);
-    file_put_contents('todo.json' , $jsonToDoList); 
-
-    var_dump($toDoList);
+    header("Access-Control-Allow-Origin: http://localhost:8080");
+    header("Access-Control-Allow-Headers: X-Requested-With");
+    
+    header('Content-Type: application/json');
+    
+    $jsonTodoList = file_get_contents("todo.json", true);
+    echo $jsonTodoList;
