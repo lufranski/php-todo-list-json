@@ -5,7 +5,7 @@ export default{
     data(){
         return{
 
-            apiUrl: 'http://localhost/php-todo-list-json/server-side/api.php',
+            apiUrl: 'http://localhost/php-todo-list-json/server-side/',
             todoList: [],
             newTask: ''
         }
@@ -13,10 +13,22 @@ export default{
     methods: {
         getTodoList(){
             
-            axios.get(this.apiUrl).then(res => {
+            axios.get(this.apiUrl + 'api.php').then(res => {
                 const data = res.data;
 
                 this.todoList = data;
+            });
+        },
+        addTask(e){
+            e.preventDefault();
+
+            const par = {params: {
+                
+                'newTask' : this.newTask
+            }};
+
+            axios.get(this.apiUrl + 'api-new-task.php', par).then(() => {
+                this.getTodoList();
             });
         }
     },
@@ -35,7 +47,7 @@ export default{
         <li v-for="task in this.todoList">{{task.name}}</li>
     </ul>
 
-    <form>
+    <form @submit="addTask">
         <input type="text" name="newTask" v-model="newTask">
         <input type="submit" value="ADD TASK">
     </form>
