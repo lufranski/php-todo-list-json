@@ -4,16 +4,17 @@
     
     header('Content-Type: application/json');
 
-    $newTask = $_GET['newTask'];
-    $completed = $_GET['completed'];
+    // $newTask = $_GET['newTask'];
+    // $completed = $_GET['completed'];
+    $index = $_POST['index'];
 
     $jsonTodoList = file_get_contents("todo.json", true);
-    $todoList = json_decode($jsonTodoList);
+    $todoList = json_decode($jsonTodoList, true);
 
-    $todoList[] = [
-        'name' => $newTask,
-        'completed' => $completed
-    ];
+    $todoList[$index]['completed'] = !$todoList[$index]['completed'];
 
     $jsonTodoList = json_encode($todoList);
     file_put_contents('todo.json' , $jsonTodoList);
+
+    echo $jsonTodoList;
+?>
