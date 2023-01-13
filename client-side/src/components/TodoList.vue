@@ -31,6 +31,7 @@ export default{
                 
                 axios.get(this.apiUrl + 'api-new-task.php', par).then(() => {
                     this.getTodoList();
+                    this.newTask = '';
                 });
 
             }
