@@ -22,36 +22,37 @@ export default{
         addTask(e){
             e.preventDefault();
 
-            const par = {params: {
-                
-                'newTask' : this.newTask,
-                'completed' : this.taskDone(index)
-            }};
-
-            if(this.newTask != ''){
-                
-                axios.get(this.apiUrl + 'api-new-task.php', par).then(() => {
-                    this.getTodoList();
-                    this.newTask = '';
-                });
-
+            //pachetto dati da inviare al backend (testo)
+            const data = {
+                'newTaskText': this.newTask
             }
+           
+            //fare chiamata post alla nostra api inserendo dati
+            axios.post(`${this.apiUrl}api-new-task.php`, data, {
+                headers: {'Content-Type':  'multipart/form-data'}
+            })
+                .then(res => {
+                    this.todoList = res.data;
+                })
+            
         },
         taskDone(index){
-            console.log(this.todoList);
-            
-            if(this.todoList[index].completed == false) {
 
-                this.todoList[index].completed = true;
-            } else {
-
-                this.todoList[index].completed = false;
+            const data = {
+                'index' : index
             }
+
+            axios.post(this.apiUrl + 'api-task-status.php' , data, {
+                headers: {'Content-Type':  'multipart/form-data'}
+            })
+            .then(res => {
+                    
+                this.todoList = res.data;
+            });
         }
     },
     mounted() {
         this.getTodoList();
-        // console.log(this.todoList);
     }
 }
 </script>
@@ -64,7 +65,11 @@ export default{
 
     <ul>
         <li 
-        v-for="(task, index) in this.todoList" :key=index :class="task.completed ? 'done' : ''" @click="taskDone(index)">{{task.name}}</li>
+        v-for="(task, index) in this.todoList" :key=index :class="task.completed ? 'done' : ''" @click="taskDone(index)">
+        
+            {{task.name}}
+    
+        </li>
     </ul>
 
     <form @submit="addTask">
@@ -129,6 +134,7 @@ form {
     background-color: black;
     color: #FB2576;
     border: 1px solid #FB2576;
+    cursor: pointer;
     transition: .4s;
 }
 
