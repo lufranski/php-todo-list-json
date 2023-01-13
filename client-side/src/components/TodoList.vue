@@ -24,7 +24,8 @@ export default{
 
             const par = {params: {
                 
-                'newTask' : this.newTask
+                'newTask' : this.newTask,
+                'completed' : this.taskDone(index)
             }};
 
             if(this.newTask != ''){
@@ -81,11 +82,11 @@ div {
 }
 
 ul {
-    width: 20%;
+    width: 30%;
     height: 400px;
     overflow-y: auto;
     margin: 0 auto;
-
+    padding: 0 1.5rem;
 }
 
 li {
