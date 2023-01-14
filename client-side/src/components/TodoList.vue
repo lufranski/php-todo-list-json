@@ -27,13 +27,15 @@ export default{
                 'newTaskText': this.newTask
             }
            
-            //fare chiamata post alla nostra api inserendo dati
-            axios.post(`${this.apiUrl}api-new-task.php`, data, {
-                headers: {'Content-Type':  'multipart/form-data'}
-            })
-                .then(res => {
-                    this.todoList = res.data;
+            if(this.newTask != ''){
+                //fare chiamata post alla nostra api inserendo dati
+                axios.post(`${this.apiUrl}api-new-task.php`, data, {
+                    headers: {'Content-Type':  'multipart/form-data'}
                 })
+                    .then(res => {
+                        this.todoList = res.data;
+                    })
+            }    
             
         },
         taskDone(index){
@@ -49,6 +51,20 @@ export default{
                     
                 this.todoList = res.data;
             });
+        },
+        deleteTask(index){
+
+            const data = {
+                'index' : index
+            }
+
+            axios.post(`${this.apiUrl}api-delete-task.php` , data , {
+                headers: {'Content-Type': 'multipart/form-data'}
+            })
+                .then(res => {
+
+                    this.todoList = res.data;
+                });
         }
     },
     mounted() {
@@ -65,11 +81,13 @@ export default{
 
     <ul>
         <li 
-        v-for="(task, index) in this.todoList" :key=index :class="task.completed ? 'done' : ''" @click="taskDone(index)">
-        
-            {{task.name}}
+        v-for="(task, index) in this.todoList" :key=index>
+            <a href="#" :class="task.completed ? 'done' : ''" @click="taskDone(index)" id="title">
 
-            <a href="#">
+                {{task.name}}
+            </a>
+
+            <a href="#" @click="deleteTask(index)" v-if="task.name" id="icon">
                 <font-awesome-icon icon="fa-solid fa-trash-can" />
             </a>
         </li>
@@ -91,7 +109,7 @@ div {
 
 ul {
     width: 30%;
-    height: 400px;
+    height: 380px;
     overflow-y: auto;
     margin: 0 auto;
     padding: 0 1.5rem;
@@ -102,13 +120,19 @@ li {
     margin-bottom: 1rem;
     padding: 10px;
     border-radius: 16px 0 16px 0;
-    color: black;
-    font-weight: 900;
-    cursor: pointer;
     position: relative;
 }
 
-a {
+.done {
+    text-decoration: line-through;
+}
+
+#title {
+    color: black;
+    font-weight: 900;
+}
+
+#icon {
     background-color: black;
     color: #FB2576;
     border-radius: 50%;
@@ -118,13 +142,9 @@ a {
     bottom: 5px;
 }
 
-.done {
-    text-decoration: line-through;
-}
-
 form {
     width: 35%;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 
 #new-task {
