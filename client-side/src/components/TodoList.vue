@@ -68,7 +68,10 @@ export default{
         v-for="(task, index) in this.todoList" :key=index :class="task.completed ? 'done' : ''" @click="taskDone(index)">
         
             {{task.name}}
-    
+
+            <a href="#">
+                <font-awesome-icon icon="fa-solid fa-trash-can" />
+            </a>
         </li>
     </ul>
 
@@ -97,11 +100,22 @@ ul {
 li {
     background-color: #FB2576;
     margin-bottom: 1rem;
-    padding: 5px;
+    padding: 10px;
     border-radius: 16px 0 16px 0;
     color: black;
     font-weight: 900;
     cursor: pointer;
+    position: relative;
+}
+
+a {
+    background-color: black;
+    color: #FB2576;
+    border-radius: 50%;
+    padding: .3rem .4rem;
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
 }
 
 .done {
